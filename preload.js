@@ -7,6 +7,7 @@ const cfg = require(`C:\\users\\${
 
 let div = document.getElementById("Status");
 let refreshTimestamp = document.getElementById("timestamp");
+let version = document.getElementById("version");
 let token = document.getElementById("token");
 let debug = document.getElementById("debug");
 let shortcut = document.getElementById("shortcut");
@@ -17,6 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
   nebenstelle.textContent = cfg.placetel_data.si_id;
   token.textContent = "exists";
   shortcut.textContent = cfg.shortcut_key;
+  version.textContent = "v" + require("./package.json").version;
   setInterval(() => {
     updateUser();
   }, 10 * 1000);
