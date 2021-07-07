@@ -58,7 +58,10 @@ async function createWindow() {
   });
 
   autoUpdater.on("error", (error) => {
-    new Notification("Error while searching for updates", error).show();
+    new Notification({
+      title: "Update Check",
+      body: error,
+    }).show();
   });
 
   // ##### CONFIG CHECK #####
