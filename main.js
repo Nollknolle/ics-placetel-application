@@ -4,6 +4,7 @@ const {
   globalShortcut,
   clipboard,
   ipcMain,
+  Notification,
 } = require("electron");
 const axios = require("axios");
 const { autoUpdater } = require("electron-updater");
@@ -23,16 +24,16 @@ async function createWindow() {
   });
 
   autoUpdater.on("checking-for-update", () => {
-    new Notification("Checking for updates");
+    new Notification("Checking for updates", "Checking for updates").show();
   });
 
   autoUpdater.on("update-available", (info) => {
-    new Notification("Found update", `Version: ${info.version}`);
+    new Notification("Found update", `Version: ${info.version}`).show();
     app.setBadgeCount(1);
   });
 
   autoUpdater.on("update-not-available", () => {
-    new Notification("No update available");
+    new Notification("No update available", "No update available").show();
   });
 
   autoUpdater.on("download-progress", (data) => {
@@ -40,12 +41,12 @@ async function createWindow() {
   });
 
   autoUpdater.on("update-downloaded", (data) => {
-    new Notification("New Update", "Installing update.");
+    new Notification("New Update", "Installing update.").show();
     autoUpdater.quitAndInstall();
   });
 
   autoUpdater.on("error", (error) => {
-    new Notification("Error while searching for updates", error);
+    new Notification("Error while searching for updates", error).show();
   });
 
   // ##### CONFIG CHECK #####
