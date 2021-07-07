@@ -4,6 +4,11 @@
     "appId": "net.mayr.ics-plactel",
     "copyright": "Copyright © 2021 Noel Mayr",
     "afterSign": "electron-builder-notarize",
+    "publish": {
+      "provider": "github",
+      "repo": "ics-placetel-application",
+      "owner": "Nollknolle"
+    },
     "win": {
       "target": [
         {

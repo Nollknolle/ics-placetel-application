@@ -6,6 +6,7 @@ const {
   ipcMain,
 } = require("electron");
 const axios = require("axios");
+const { autoUpdater } = require("electron-updater");
 const fs = require("fs");
 
 var config_valid = true;
@@ -20,6 +21,33 @@ async function createWindow() {
     },
     autoHideMenuBar: true,
   });
+
+  autoUpdater.on("checking-for-update", () => {
+    new Notification("Checking for updates");
+  });
+
+  autoUpdater.on("update-available", (info) => {
+    new Notification("Found update", `Version: ${info.version}`);
+    app.setBadgeCount(1);
+  });
+
+  autoUpdater.on("update-not-available", () => {
+    new Notification("No update available");
+  });
+
+  autoUpdater.on("download-progress", (data) => {
+    mainWindow.setProgressBar(data.percent / 100.0);
+  });
+
+  autoUpdater.on("update-downloaded", (data) => {
+    new Notification("New Update", "Installing update.");
+    autoUpdater.quitAndInstall();
+  });
+
+  autoUpdater.on("error", (error) => {
+    new Notification("Error while searching for updates", error);
+  });
+
   // ##### CONFIG CHECK #####
 
   const configExists = fs.existsSync(
@@ -63,6 +91,7 @@ app.whenReady().then(async () => {
       globalShortcut.register(window.config.shortcut_key, () => {
         window.win.webContents.send("dialkey");
       });
+      autoUpdater.checkForUpdates();
     }
   }
 });

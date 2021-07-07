@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "build-all": "electron-builder -mw --publish never",
-    "build-win": "electron-builder -w --publish never"
+    "build-win": "electron-builder -w --publish onTagOrDraft"
   },
   "author": "Nlmyr",
   "license": "MIT",
@@ -17,6 +17,7 @@
     "electron-builder-notarize": "^1.2.0"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "electron-updater": "^4.3.9"
   }
 }
