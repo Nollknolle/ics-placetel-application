@@ -46,7 +46,7 @@ async function createWindow() {
   });
 
   autoUpdater.on("download-progress", (data) => {
-    mainWindow.setProgressBar(data.percent / 100.0);
+    win.setProgressBar(data.percent / 100.0);
   });
 
   autoUpdater.on("update-downloaded", (data) => {
@@ -60,7 +60,7 @@ async function createWindow() {
   autoUpdater.on("error", (error) => {
     new Notification({
       title: "Update Check",
-      body: error,
+      body: "ERR: " + error,
     }).show();
   });
 
