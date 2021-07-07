@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ICS Placetel API Application [Created by Nlmyr]</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ICS Placetel Application</h1>
+      <hr />
+      <div id="Status"></div>
+      <hr />
+      <div class="alert alert-dark" role="alert">
+        Deine Nebenstelle: <span id="nebenstelle"></span><br />
+        <code
+          >Kopiere deine Nummer und drücke <span id="shortcut"></span>.</code
+        >
+      </div>
+      <hr />
+      <span class="badge bg-secondary" id="timestamp"></span>
+      <span class="badge bg-success">API Token: <span id="token"></span></span>
+      | Debug:
+      <b><span id="debug"></span></b>
+      <script src="./preload.js"></script>
+    </div>
+  </body>
+</html>

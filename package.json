@@ -1,0 +1,22 @@
+{
+  "name": "ics-eletron-placetel-app",
+  "version": "1.0.0",
+  "description": "A Placetel Application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build-all": "electron-builder -mw --publish never",
+    "build-win": "electron-builder -w --publish never"
+  },
+  "author": "Nlmyr",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^13.1.5",
+    "electron-builder": "^22.11.7",
+    "electron-builder-notarize": "^1.2.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
