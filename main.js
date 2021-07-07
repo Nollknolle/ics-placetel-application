@@ -24,16 +24,25 @@ async function createWindow() {
   });
 
   autoUpdater.on("checking-for-update", () => {
-    new Notification("Checking for updates", "Checking for updates").show();
+    new Notification({
+      title: "Update Check",
+      body: "Checking for updates...",
+    }).show();
   });
 
   autoUpdater.on("update-available", (info) => {
-    new Notification("Found update", `Version: ${info.version}`).show();
+    new Notification({
+      title: "Update Check",
+      body: "Update available: " + info.version,
+    }).show();
     app.setBadgeCount(1);
   });
 
   autoUpdater.on("update-not-available", () => {
-    new Notification("No update available", "No update available").show();
+    new Notification({
+      title: "Update Check",
+      body: "No Update available",
+    }).show();
   });
 
   autoUpdater.on("download-progress", (data) => {
@@ -41,7 +50,10 @@ async function createWindow() {
   });
 
   autoUpdater.on("update-downloaded", (data) => {
-    new Notification("New Update", "Installing update.").show();
+    new Notification({
+      title: "Update Check",
+      body: "Installing Update",
+    }).show();
     autoUpdater.quitAndInstall();
   });
 
