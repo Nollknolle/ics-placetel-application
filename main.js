@@ -9,6 +9,7 @@ const {
 const axios = require("axios");
 const { autoUpdater } = require("electron-updater");
 const fs = require("fs");
+const isDev = require("electron-is-dev");
 
 var config_valid = true;
 
@@ -107,7 +108,7 @@ app.whenReady().then(async () => {
       globalShortcut.register(window.config.shortcut_key, () => {
         window.win.webContents.send("dialkey");
       });
-      autoUpdater.checkForUpdates();
+      if (!isDev) autoUpdater.checkForUpdates();
     }
   }
 });

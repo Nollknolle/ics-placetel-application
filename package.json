@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "electron-is-dev": "^2.0.0",
     "electron-updater": "^4.3.9"
   }
 }
