@@ -108,6 +108,7 @@ app.whenReady().then(async () => {
       globalShortcut.register(window.config.shortcut_key, () => {
         window.win.webContents.send("dialkey");
       });
+
       if (!isDev) autoUpdater.checkForUpdates();
     }
   }
