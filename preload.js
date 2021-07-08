@@ -12,6 +12,7 @@ let token = document.getElementById("token");
 let debug = document.getElementById("debug");
 let shortcut = document.getElementById("shortcut");
 let nebenstelle = document.getElementById("nebenstelle");
+let warning = document.getElementById("warning");
 
 window.addEventListener("DOMContentLoaded", () => {
   updateUser();
@@ -19,9 +20,14 @@ window.addEventListener("DOMContentLoaded", () => {
   token.textContent = "exists";
   shortcut.textContent = cfg.shortcut_key;
   version.textContent = "v" + require("./package.json").version;
+
+  if (!cfg.refresh_time || cfg.refresh_time === 0)
+    warning.textContent =
+      "You have an outdated config file! Check latest changelog.";
+  let update_interval = cfg.refresh_time === 0 ? 10 : cfg.refresh_time;
   setInterval(() => {
     updateUser();
-  }, 10 * 1000);
+  }, update_interval * 1000);
 });
 
 function updateUser() {
@@ -81,6 +87,8 @@ async function updateState(event) {
     div.textContent = error.response.data.error;
   });
 
+  debug.textContent = "Changed status from user";
+
   setTimeout(() => {
     updateUser();
   }, 1000);
@@ -119,4 +127,8 @@ ipcRenderer.on("dialkey", () => {
   } else {
     debug.innerHTML = "Nebenstelle leer.";
   }
+});
+
+ipcRenderer.on("warning", (text) => {
+  warning.textContent = text;
 });
