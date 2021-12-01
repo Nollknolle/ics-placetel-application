@@ -21,6 +21,25 @@
       <hr />
       <div id="Status"></div>
       <hr />
+      <div class="input-group mb-3">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="button-addon1"
+          onclick="manualdial()"
+        >
+          Nummer wählen
+        </button>
+        <input
+          type="number"
+          class="form-control"
+          placeholder=""
+          aria-label="Example text with button addon"
+          aria-describedby="button-addon1"
+          id="manualdialing"
+        />
+      </div>
+      <hr />
       <div class="alert alert-dark" role="alert">
         Deine Nebenstelle: <span id="nebenstelle"></span><br />
         <code

@@ -94,36 +94,50 @@ async function updateState(event) {
   }, 1000);
 }
 
-ipcRenderer.on("dialkey", () => {
+async function dial(number) {
+  var data = JSON.stringify({
+    sipuid: nebenstelle.textContent,
+    target: number,
+    from_name: "ics it-systems GmbH",
+  });
+
+  var config = {
+    method: "post",
+    url: "https://api.placetel.de/v2/calls",
+    headers: {
+      Authorization: `Bearer ${cfg.placetel_data.api_token}`,
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+
+  axios(config)
+    .then(function (response) {
+      debug.innerHTML = "Dialed: " + number;
+      new Notification("Erfolgreich!", {
+        body: "Dialed: " + number,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+      debug.innerHTML = `[${error.response.status}] ${error.response.data.error}`;
+    });
+}
+
+async function manualdial() {
+  let manualdialing = document.getElementById("manualdialing");
+  if (manualdialing.value) {
+    await dial(manualdialing.value);
+    manualdialing.value = "";
+  } else {
+    debug.innerHTML = "Keine Nummer vorhanden.";
+  }
+}
+
+ipcRenderer.on("dialkey", async () => {
   const text = clipboard.readText();
   if (nebenstelle.textContent != "") {
-    var data = JSON.stringify({
-      sipuid: nebenstelle.textContent,
-      target: text,
-      from_name: "ics it-systems GmbH",
-    });
-
-    var config = {
-      method: "post",
-      url: "https://api.placetel.de/v2/calls",
-      headers: {
-        Authorization: `Bearer ${cfg.placetel_data.api_token}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        debug.innerHTML = "Dialed: " + text;
-        new Notification("Erfolgreich!", {
-          body: "Dialed: " + text,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-        debug.innerHTML = `[${error.response.status}] ${error.response.data.error}`;
-      });
+    await dial(text);
   } else {
     debug.innerHTML = "Nebenstelle leer.";
   }
